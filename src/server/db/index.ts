@@ -22,6 +22,8 @@ export const Query = <T = any>(query: string, values?: any) => {
 };
 
 import users from './queries/users';
+import posts from './queries/posts';
 export default {
-    users
+	users,
+	posts
 }

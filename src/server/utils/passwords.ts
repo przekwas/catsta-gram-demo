@@ -9,3 +9,7 @@ export async function generateHash(password: string) {
         throw error;
     }
 }
+
+export function comparePasswords (attemptPassword: string, storedPassword: string) {
+    return bcrypt.compareSync(attemptPassword, storedPassword);
+}
