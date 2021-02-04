@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { IPost } from '../utils/types';
+import apiService from '../utils/api-service';
 
 import PostCard from '../components/PostCard';
 
@@ -9,9 +10,8 @@ const Home = (props: HomeProps) => {
 	const [posts, setPosts] = useState<IPost[]>([]);
 
 	useEffect(() => {
-		fetch('/api/posts')
-		.then(r => r.json())
-		.then(posts => setPosts(posts));
+		apiService('/api/posts')
+			.then(posts => setPosts(posts));
 	}, []);
 
 	return (

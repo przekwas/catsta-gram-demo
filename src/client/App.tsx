@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import PrivateRoute from './components/PrivateRoute';
 import Compose from './pages/Compose';
 import Details from './pages/Details';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
 import Register from './pages/Register';
 
 const App = (props: AppProps) => {
@@ -24,9 +26,12 @@ const App = (props: AppProps) => {
 				<Route exact path="/register">
 					<Register />
 				</Route>
-				<Route exact path="/posts/add">
+				<PrivateRoute exact path="/posts/add">
 					<Compose />
-				</Route>
+				</PrivateRoute>
+				<PrivateRoute exact path="/profile">
+					<Profile />
+				</PrivateRoute>
 				<Route path="*">
 					<NotFound />
 				</Route>
