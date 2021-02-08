@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import Compose from './pages/Compose';
 import Details from './pages/Details';
+import Edit from './pages/Edit';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
@@ -26,6 +27,9 @@ const App = (props: AppProps) => {
 				<Route exact path="/register">
 					<Register />
 				</Route>
+				<PrivateRoute exact path="/posts/:postid/edit">
+					<Edit />
+				</PrivateRoute>
 				<PrivateRoute exact path="/posts/add">
 					<Compose />
 				</PrivateRoute>

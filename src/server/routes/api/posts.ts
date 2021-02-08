@@ -40,4 +40,17 @@ router.post('/', passport.authenticate('jwt'), async (req: ReqUser, res) => {
 	}
 });
 
+router.delete('/:postid', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+	const postid = req.params.postid;
+	const user_id = req.user.id;
+	try {
+		const result = await db.posts.destroy(postid, user_id);
+		res.json({ message: 'post deleted', ...result });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ message: 'i suck at code!', error });
+	}
+});
+
+
 export default router;

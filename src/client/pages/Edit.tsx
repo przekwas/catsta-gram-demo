@@ -1,22 +1,26 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import apiService from '../utils/api-service';
+import { IPost } from '../utils/types';
 
-const Compose = (props: ComposeProps) => {
-	const history = useHistory();
+const Edit = (props: EditProps) => {
+	const { postid } = useParams<{ postid: string }>();
+
 	const [values, setValues] = useState<any>({});
+
+	useEffect(() => {
+		apiService(`/api/posts/${postid}`).then(post => {
+			setValues({
+				caption: post.caption,
+				photo_url: post.photo_url
+			})
+		});
+	}, [postid]);
 
 	const handleChanges = (e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
 		e.persist();
 		setValues(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
-	};
-
-	const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		if (!values.photo_url || !values.caption) return;
-		const result = await apiService('/api/posts', 'POST', values);
-		history.push(`/posts/${result.id}/details`);
 	};
 
 	return (
@@ -41,7 +45,7 @@ const Compose = (props: ComposeProps) => {
 							rows={10}
 						/>
 						<small className="d-block">{values.caption?.length || 0 } / 144</small>
-						<button onClick={handleSubmit} className="btn btn-primary shadow-sm mt-3">
+						<button className="btn btn-primary shadow-sm mt-3">
 							Post Dat Shit
 						</button>
 					</form>
@@ -51,6 +55,6 @@ const Compose = (props: ComposeProps) => {
 	);
 };
 
-interface ComposeProps {}
+interface EditProps {}
 
-export default Compose;
+export default Edit;

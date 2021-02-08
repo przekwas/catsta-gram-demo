@@ -2,12 +2,8 @@ import * as React from 'react';
 
 const NotFound = (props: NotFoundProps) => {
 	return (
-		<main className="container">
-			<section className="row mt-3">
-				<div className="col-md-12">
-					<h1>404 View</h1>
-				</div>
-			</section>
+		<main className="d-flex flex-column justify-content-center align-items-center min-vh-100">
+			<h1>Route Not Found, idiot!</h1>
 		</main>
 	);
 };
