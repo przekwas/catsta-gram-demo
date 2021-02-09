@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import apiService from '../utils/api-service';
+import apiService from '../../utils/api-service';
 
 const Compose = (props: ComposeProps) => {
 	const history = useHistory();
-	const [values, setValues] = useState<any>({});
+	const [values, setValues] = useState<{ [key: string]: string }>({});
 
 	const handleChanges = (e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
 		e.persist();

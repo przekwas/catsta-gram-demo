@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import apiService from '../utils/api-service';
-import { IPost } from '../utils/types';
+import apiService from '../../utils/api-service';
+import { IPost } from '../../utils/types';
 
-import PostCard from '../components/PostCard';
+import PostCard from '../../components/PostCard';
 
 const Details = (props: DetailsProps) => {
 	const { postid } = useParams<{ postid: string }>();

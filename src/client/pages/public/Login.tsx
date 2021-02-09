@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import apiService, { setStorage } from '../utils/api-service';
+import apiService, { setStorage } from '../../utils/api-service';
 
 const Login = (props: LoginProps) => {
 	const history = useHistory();

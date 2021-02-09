@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import apiService from '../utils/api-service';
-import { IProfileInfo, IProfilePosts } from '../utils/types';
+import apiService from '../../utils/api-service';
+import { IProfileInfo, IProfilePosts } from '../../utils/types';
 
 const Profile = (props: ProfileProps) => {
 	const [info, setInfo] = useState<IProfileInfo>(null);

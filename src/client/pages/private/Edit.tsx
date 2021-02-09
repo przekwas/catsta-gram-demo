@@ -1,26 +1,34 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
-import apiService from '../utils/api-service';
-import { IPost } from '../utils/types';
+import { useHistory, useParams } from 'react-router';
+import apiService from '../../utils/api-service';
+import { IPost } from '../../utils/types';
 
 const Edit = (props: EditProps) => {
 	const { postid } = useParams<{ postid: string }>();
-
-	const [values, setValues] = useState<any>({});
+	const history = useHistory();
+	const [values, setValues] = useState<{ [key: string]: string }>({});
 
 	useEffect(() => {
 		apiService(`/api/posts/${postid}`).then(post => {
 			setValues({
 				caption: post.caption,
 				photo_url: post.photo_url
-			})
+			});
 		});
 	}, [postid]);
 
 	const handleChanges = (e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
 		e.persist();
 		setValues(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
+	};
+
+	const handleEdit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		const result = await apiService(`/api/posts/${postid}`, 'PUT', values);
+		if (result.affectedRows === 1) {
+			history.push('/profile');
+		}
 	};
 
 	return (
@@ -35,7 +43,9 @@ const Edit = (props: EditProps) => {
 							onChange={handleChanges}
 							className="form-control"
 						/>
-						<small className="text-muted d-block mb-2">host the image yourself lol</small>
+						<small className="text-muted d-block mb-2">
+							host the image yourself lol
+						</small>
 						<label>caption</label>
 						<textarea
 							name="caption"
@@ -44,9 +54,9 @@ const Edit = (props: EditProps) => {
 							className="form-control"
 							rows={10}
 						/>
-						<small className="d-block">{values.caption?.length || 0 } / 144</small>
-						<button className="btn btn-primary shadow-sm mt-3">
-							Post Dat Shit
+						<small className="d-block">{values.caption?.length || 0} / 144</small>
+						<button onClick={handleEdit} className="btn btn-primary shadow-sm mt-3">
+							Save Dat Shit
 						</button>
 					</form>
 				</div>

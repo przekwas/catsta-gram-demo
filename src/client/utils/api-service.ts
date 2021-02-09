@@ -13,7 +13,7 @@ const apiService = async <T = any>(uri: string, method: string = 'GET', body?: {
         headers['Authorization'] = `Bearer ${token}`
     }
 
-    if (method === 'POST' || method === 'PUT') {
+    if (body) {
         headers['Content-Type'] = 'application/json';
         options.body = JSON.stringify(body)
     }

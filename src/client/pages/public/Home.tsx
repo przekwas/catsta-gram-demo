@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { IPost } from '../utils/types';
-import apiService from '../utils/api-service';
+import { IPost } from '../../utils/types';
+import apiService from '../../utils/api-service';
 
-import PostCard from '../components/PostCard';
+import PostCard from '../../components/PostCard';
 
 const Home = (props: HomeProps) => {
 
