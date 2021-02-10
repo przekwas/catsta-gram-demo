@@ -3,7 +3,18 @@ import { MySQLResponse, PostsTable } from '../models';
 
 const all = () =>
 	Query(
-		'SELECT posts.*, users.username FROM posts JOIN users ON users.id = posts.user_id ORDER BY posts.created_at DESC'
+		`
+		SELECT 
+    		posts.*, users.username, COUNT(comments.id) AS num_of_comments
+		FROM
+    		posts
+        		JOIN
+    		users ON users.id = posts.user_id
+        		LEFT JOIN
+    		comments ON comments.post_id = posts.id
+		GROUP BY posts.id
+		ORDER BY posts.created_at DESC;
+		`
 	);
 const one = (id: string) =>
 	Query(

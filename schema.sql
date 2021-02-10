@@ -23,3 +23,14 @@ CREATE TABLE posts (
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
+
+CREATE TABLE comments (
+	id VARCHAR(60) NOT NULL,
+    user_id VARCHAR(60) NOT NULL,
+    post_id VARCHAR(60) NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (post_id) REFERENCES posts (id)
+);

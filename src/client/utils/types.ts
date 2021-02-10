@@ -5,6 +5,16 @@ export interface IPost {
 	caption: string;
 	created_at: string;
 	username: string;
+	num_of_comments?: number;
+}
+
+export interface IComment {
+	id: string;
+	user_id: string;
+	post_id: string;
+	content: string;
+	created_at: Date;
+	username: string;
 }
 
 export interface IProfileInfo {

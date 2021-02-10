@@ -16,6 +16,7 @@ const PostCard = ({ post, fullSize }: PostCardProps) => {
 					<h4 className="card-title">
 						<small className="text-muted">@{post.username}</small> {post.caption}
 					</h4>
+					<p className="card-text">{post.num_of_comments} comment{post.num_of_comments === 1 ? '' : 's'}</p>
 					<div className={`d-flex ${buttonPlacement}`}>
 						<Link to={buttonPath} className={`btn btn-${fullSize ? 'secondary' : 'primary'}`}>
 							{buttonText}

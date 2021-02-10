@@ -17,6 +17,16 @@ export interface PostsTable {
 	created_at?: Date;
 }
 
+export interface CommentsTable {
+	id?: string;
+	user_id?: string;
+	post_id?: string;
+	content?: string;
+	created_at?: Date;
+}
+
+
+
 export interface MySQLResponse {
 	fieldCount: number;
 	affectedRows: number;
@@ -27,3 +37,5 @@ export interface MySQLResponse {
 	protocol41: boolean;
 	changedRows: number;
 }
+
+
