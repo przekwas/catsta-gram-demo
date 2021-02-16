@@ -13,7 +13,7 @@ const Details = (props: DetailsProps) => {
 	const [content, setContent] = useState<string>('');
 
 	useEffect(() => {
-		let postDetails = null;
+		let postDetails: IPost = null;
 		apiService(`/api/posts/${postid}`)
 			.then(post => {
 				postDetails = post;

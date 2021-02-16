@@ -1,5 +1,5 @@
 {
-  "name": "barebones-react-typescript-express",
+  "name": "casta-gram",
   "version": "1.0.0",
   "description": "",
   "main": "dist/server.js",
@@ -8,8 +8,7 @@
     "watch:build": "npx webpack -w",
     "watch:server": "nodemon dist/server.js",
     "dev": "npm-run-all --parallel watch:*",
-    "start": "node dist/server.js",
-    "deploy": "git push heroku main"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
