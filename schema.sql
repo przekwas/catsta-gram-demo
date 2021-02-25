@@ -34,3 +34,13 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (post_id) REFERENCES posts (id)
 );
+
+CREATE TABLE likes (
+	post_id VARCHAR(60) NOT NULL,
+    user_id VARCHAR(60) NOT NULL,
+    PRIMARY KEY (post_id, user_id),
+        FOREIGN KEY (user_id)
+        REFERENCES users (id),
+    FOREIGN KEY (post_id)
+        REFERENCES posts (id)
+);
