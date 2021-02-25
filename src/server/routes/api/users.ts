@@ -1,6 +1,6 @@
 import * as express from 'express';
 import db from '../../db';
-import { tokenCheck } from '../../middlewares/custom-middlewares';
+import { tokenCheck } from '../../middlewares/auth-middlewares';
 import { ReqUser } from '../../utils/types';
 
 const router = express.Router();

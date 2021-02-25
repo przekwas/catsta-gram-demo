@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import apiService from '../../utils/api-service';
+import apiService, { TOKEN_KEY } from '../../utils/api-service';
 import { errorHandler } from '../../utils/error-handler';
 
 const Compose = (props: ComposeProps) => {
@@ -26,18 +26,16 @@ const Compose = (props: ComposeProps) => {
 			const newImagePost = new FormData();
 			newImagePost.append('image', uploadFile);
 			newImagePost.append('caption', values.caption);
-			
-			fetch('/api/posts', {
+			const TOKEN = localStorage.getItem(TOKEN_KEY);
+			const res = await fetch('/api/posts', {
 				method: 'POST',
 				headers: {
-					'Authorization': `Bearer ${TOKEN}`,
-					'Content-Type': 'multipart/form-data'
+					'Authorization': `Bearer ${TOKEN}`
 				},
 				body: newImagePost
-			})
-			.then(result => history.push(`/posts/${result.id}/details`))
-
-			// history.push(`/posts/${result.id}/details`);
+			});
+			const result = await res.json();
+			history.push(`/posts/${result.id}/details`);
 		} catch (error) {
 			errorHandler(error);
 		}

@@ -13,5 +13,9 @@ export default {
     jwt: {
         secret: process.env.JWT_SECRET,
         expires: process.env.JWT_EXPIRES
+    },
+    aws: {
+        accessKeyId: process.env.AWS_ACCESS_ID,
+        secretKey: process.env.AWS_SECRET_KEY
     }
 }
