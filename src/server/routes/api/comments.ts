@@ -1,7 +1,7 @@
 import * as express from 'express';
-import * as passport from 'passport';
 import db from '../../db';
 import { v4 as uuidv4 } from 'uuid';
+import { tokenCheck } from '../../middlewares/custom-middlewares';
 import { ReqUser } from '../../utils/types';
 
 const router = express.Router();
@@ -38,7 +38,7 @@ router.get('/posts/:postid', async (req, res) => {
 // 	}
 // });
 
-router.post('/', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+router.post('/', tokenCheck, async (req: ReqUser, res) => {
 	const newComment = req.body;
 	try {
 		newComment.id = uuidv4();
@@ -51,7 +51,7 @@ router.post('/', passport.authenticate('jwt'), async (req: ReqUser, res) => {
 	}
 });
 
-// router.delete('/:postid', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+// router.delete('/:postid', tokenCheck, async (req: ReqUser, res) => {
 // 	const postid = req.params.postid;
 // 	const user_id = req.user.id;
 // 	try {
@@ -63,7 +63,7 @@ router.post('/', passport.authenticate('jwt'), async (req: ReqUser, res) => {
 // 	}
 // });
 
-// router.put('/:postid', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+// router.put('/:postid', tokenCheck, async (req: ReqUser, res) => {
 // 	const postid = req.params.postid;
 // 	const user_id = req.user.id;
 // 	const editedPost = req.body;

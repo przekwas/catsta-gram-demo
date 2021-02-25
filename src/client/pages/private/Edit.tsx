@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 import apiService from '../../utils/api-service';
-import { IPost } from '../../utils/types';
+import { errorHandler } from '../../utils/error-handler';
 
 const Edit = (props: EditProps) => {
 	const { postid } = useParams<{ postid: string }>();
@@ -10,12 +10,14 @@ const Edit = (props: EditProps) => {
 	const [values, setValues] = useState<{ [key: string]: string }>({});
 
 	useEffect(() => {
-		apiService(`/api/posts/${postid}`).then(post => {
-			setValues({
-				caption: post.caption,
-				photo_url: post.photo_url
-			});
-		});
+		apiService(`/api/posts/${postid}`)
+			.then(post => {
+				setValues({
+					caption: post.caption,
+					photo_url: post.photo_url
+				});
+			})
+			.catch(errorHandler);
 	}, [postid]);
 
 	const handleChanges = (e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
@@ -25,9 +27,13 @@ const Edit = (props: EditProps) => {
 
 	const handleEdit = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		const result = await apiService(`/api/posts/${postid}`, 'PUT', values);
-		if (result.affectedRows === 1) {
-			history.push('/profile');
+		try {
+			const result = await apiService(`/api/posts/${postid}`, 'PUT', values);
+			if (result.affectedRows === 1) {
+				history.push('/profile');
+			}
+		} catch (error) {
+			errorHandler(error);
 		}
 	};
 

@@ -9,8 +9,8 @@ const app = express();
 app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(express.json());
-app.use(routes); // /api  or  /auth
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')))
+app.use(routes);
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server listening on port: ${port}`));

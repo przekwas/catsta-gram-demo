@@ -1,11 +1,11 @@
 import * as express from 'express';
-import * as passport from 'passport';
 import db from '../../db';
+import { tokenCheck } from '../../middlewares/custom-middlewares';
 import { ReqUser } from '../../utils/types';
 
 const router = express.Router();
 
-router.get('/profile', passport.authenticate('jwt'), async (req: ReqUser, res) => {
+router.get('/profile', tokenCheck, async (req: ReqUser, res) => {
     try {
 		const userid = req.user.id;
 		const [profile] = await db.users.one(userid);
@@ -14,7 +14,7 @@ router.get('/profile', passport.authenticate('jwt'), async (req: ReqUser, res) =
 		res.json({ profile, posts });
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ message: 'i suck at code!', error });
+		res.status(500).json({ message: 'i suck at code!', error: error.message });
 	}
 });
 

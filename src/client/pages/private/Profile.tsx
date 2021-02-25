@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import apiService from '../../utils/api-service';
+import { errorHandler } from '../../utils/error-handler';
 import { IProfileInfo, IProfilePosts } from '../../utils/types';
 
 const Profile = (props: ProfileProps) => {
@@ -9,10 +10,12 @@ const Profile = (props: ProfileProps) => {
 	const [posts, setPosts] = useState<IProfilePosts[]>([]);
 
 	useEffect(() => {
-		apiService('/api/users/profile').then(result => {
+		apiService('/api/users/profile')
+		.then(result => {
 			setInfo(result.profile);
 			setPosts(result.posts);
-		});
+		})
+		.catch(errorHandler);
 	}, []);
 
 	const handleDelete = async (id: string) => {
@@ -43,7 +46,11 @@ const Profile = (props: ProfileProps) => {
 								className="list-group-item d-flex align-items-center justify-content-between">
 								<span>{post.id}</span>
 								<div>
-									<Link to={`/posts/${post.id}/edit`} className="btn btn-info mr-2">Edit</Link>
+									<Link
+										to={`/posts/${post.id}/edit`}
+										className="btn btn-info mr-2">
+										Edit
+									</Link>
 									<button
 										onClick={() => handleDelete(post.id)}
 										className="btn btn-danger">

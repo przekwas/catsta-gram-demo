@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './utils/history';
 
 import PrivateRoute from './components/PrivateRoute';
 import Compose from './pages/private/Compose';
@@ -15,7 +16,7 @@ import Search from './pages/public/Search';
 
 const App = (props: AppProps) => {
 	return (
-		<BrowserRouter>
+		<Router history={history}>
 			<Navbar />
 			<Switch>
 				<Route exact path="/">
@@ -46,7 +47,7 @@ const App = (props: AppProps) => {
 					<NotFound />
 				</Route>
 			</Switch>
-		</BrowserRouter>
+		</Router>
 	);
 };
 
