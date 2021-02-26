@@ -1,6 +1,7 @@
 import * as express from 'express';
 import db from '../../db';
 import { v4 as uuidv4 } from 'uuid';
+import { io } from '../../server';
 import { tokenCheck } from '../../middlewares/auth-middlewares';
 import { ReqUser } from '../../utils/types';
 
@@ -44,6 +45,7 @@ router.post('/', tokenCheck, async (req: ReqUser, res) => {
 		newComment.id = uuidv4();
 		newComment.user_id = req.user.id;
 		await db.comments.insert(newComment);
+		io.emit('newComment');
 		res.json({ message: 'new comment inserted', id: newComment.id });
 	} catch (error) {
 		console.log(error);

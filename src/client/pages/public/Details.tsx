@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import socketIOClient from 'socket.io-client';
 import apiService from '../../utils/api-service';
 import { IPost, IComment } from '../../utils/types';
 
@@ -26,12 +27,16 @@ const Details = (props: DetailsProps) => {
 	}, [postid]);
 
 	useEffect(() => {
-		const commentPoll = setInterval(async () => {
-			const comments = await apiService(`/api/comments/posts/${postid}`);
-			setComments(comments);
-		}, 60000);
+		const socket = socketIOClient();
 
-		return () => clearInterval(commentPoll);
+		socket.on('newComment', () => {
+			apiService(`/api/comments/posts/${postid}`)
+			.then(comments => setComments(comments));
+		});
+
+		return () => {
+			socket.disconnect();
+		}
 	}, []);
 
 	const handleAddComment = async (e: React.MouseEvent<HTMLButtonElement>) => {
